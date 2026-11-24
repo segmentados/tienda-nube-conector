@@ -35,10 +35,10 @@ export async function resolveConfig(nube: NubeSDK): Promise<SegConfig | null> {
 	const host = (DEV_FALLBACK.host ?? "").replace(/\/$/, "");
 
 	// 1) Resolución real: nuestro backend mapea store_id → {account, dataset, environment, writeKey}.
-	//    TODO(backend): implementar GET /api/tiendanube/config?store_id=... (lo crea el OAuth install).
+	//    Endpoint: GET /api/integrations/tiendanube/config?store_id=... (lo sirve TiendaNubeConfigController).
 	if (storeId && host) {
 		try {
-			const res = await fetch(`${host}/api/tiendanube/config?store_id=${encodeURIComponent(String(storeId))}`, {
+			const res = await fetch(`${host}/api/integrations/tiendanube/config?store_id=${encodeURIComponent(String(storeId))}`, {
 				headers: { accept: "application/json" },
 			});
 			if (res.ok) {
